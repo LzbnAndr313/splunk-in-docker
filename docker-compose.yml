@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  splunk:
+    container_name: so1
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - JAVA_VERSION=openjdk:11
+      - SPLUNK_LAUNCH_CONF=OPTIMISTIC_ABOUT_FILE_LOCKING=1
+      # Install apps from local files
+      - SPLUNK_APPS_URL=/tmp/default_apps/splunk-db-connect_3141.tgz,\
+        /tmp/default_apps/splunk-dbx-add-on-for-microsoft-sql-server-jdbc_120.tgz,\
+        /tmp/default_apps/splunk-dbx-add-on-for-postgres-jdbc_120.tgz
+      # Remove apps that are not needed
+      - SPLUNK_BEFORE_START_CMD=remove app splunk_secure_gateway,\
+        remove app python_upgrade_readiness_app
+    networks:
+      - splunk-net    
+    ports:
+      - "8000:8000" # Splunk web interface
+      - "8089:8089" # Splunk Services port      
+      - "9997:9997" # Indexing port      
+    volumes:
+      - splunk-etc:/opt/splunk/etc
+      - splunk-data:/opt/splunk/var
+
+volumes:
+  splunk-etc:
+  splunk-data:

@@ -1,0 +1,3 @@
+# [Using default.yml](https://splunk.github.io/docker-splunk/ADVANCED.html#using-defaultyml)
+
+The purpose of the **default.yml** is to define a standard set of variables that controls how Splunk gets set up. This is particularly important when deploying clustered Splunk topologies, as there are frequent variables that you need to be consistent across all members of the cluster (ex. keys, passwords, secrets).

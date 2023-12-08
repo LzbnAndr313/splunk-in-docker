@@ -1,0 +1,18 @@
+---
+splunk:
+  conf:
+    - key: indexes
+      value:
+        directory: /opt/splunk/etc/system/local
+        content:
+          test:
+            homePath: $SPLUNK_DB/test/db
+            coldPath: $SPLUNK_DB/test/colddb
+            thawedPath: $SPLUNK_DB/test/thaweddb
+    - key: user-prefs
+      value:
+        directory: /opt/splunkforwarder/etc/users/admin/user-prefs/local
+        content:
+          general:
+            default_namespace: appboilerplate
+            search_syntax_highlighting: dark            
